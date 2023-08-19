@@ -12,25 +12,39 @@ template OurCircuit () {
    //signals from gate
 
    signal x;
-
+signal y;
    //Final signals output
 
-   signal output y;
+   signal output z;
 
    //component gates used to create custom circuit
 
    component orgate = OR();
    component notgate = NOT();
+   component andgate = AND();
 
    //circuit logic
+   andgate.a <== a;
+   andgate.b <== b;
+x<== andgate.out;
 
-   orgate.a <== a;
-   orgate.b <== b;
-   x<== orgate.out;
+   notgate.in <== a;
+y<== notgate.out;
 
-   notgate.in <== x;
-   y <== notgate.out;
 
+   orgate.a <== x;
+   orgate.b <== y;
+   z<== orgate.out;
+
+  
+
+}
+template AND() {
+    signal input a;
+    signal input b;
+    signal output out;
+
+    out <== a*b;
 }
 
 template OR() {
